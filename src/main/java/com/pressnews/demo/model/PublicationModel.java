@@ -1,47 +1,38 @@
 package com.pressnews.demo.model;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Article")
+@Table(name = "publication")
 public class PublicationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "date_modification")
+    Date date;
 
     @Column(name = "name")
     String name;
-    @Column(name = "publication")
-    Date publication;
 
-    @Column(name = "publication")
-    Timestamp timestamp;//zapisu dokumentu do warstwy persystencji (timestamp)
+    @Column(name = "timestamp", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    Timestamp createAt;
 
     @ManyToOne
-    AuthorModel article; //(imię i nazwisko)
+    AuthorModel author;
 
     @OneToOne
-    @JoinColumn(name = "contents_id")
-    ContentsModel contents;//(tytuł publication i treść publication)
+    @JoinColumn(name = "content_id")
+    ContentModel content;
 
     public PublicationModel() {
     }
 
-    public PublicationModel(Long id, String name, Date publication, Timestamp timestamp, AuthorModel article, ContentsModel contents) {
-        this.id = id;
+    public PublicationModel(String name, String date) {
         this.name = name;
-        this.publication = publication;
-        this.timestamp = timestamp;
-        this.article = article;
-        this.contents = contents;
-    }
-
-    public ContentsModel getContents() {
-        return contents;
+        this.date = Date.valueOf(date);
     }
 
     public Long getId() {
@@ -52,51 +43,39 @@ public class PublicationModel {
         this.id = id;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Timestamp getTimestamp() {
+        return createAt;
+    }
+
+    public AuthorModel getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AuthorModel author) {
+        this.author = author;
+    }
+
+    public ContentModel getContent() {
+        return content;
+    }
+
+    public void setContent(ContentModel contents) {
+        this.content = contents;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getPublication() {
-        return publication;
-    }
-
-    public void setPublication(Date publication) {
-        this.publication = publication;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public AuthorModel getArticle() {
-        return article;
-    }
-
-    public void setArticle(AuthorModel article) {
-        this.article = article;
-    }
-
-    public void setContents(ContentsModel contents) {
-        this.contents = contents;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", publication=" + publication +
-                ", timestamp=" + timestamp +
-                ", article=" + article +
-                ", contents=" + contents +
-                '}';
     }
 }

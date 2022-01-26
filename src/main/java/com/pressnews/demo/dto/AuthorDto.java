@@ -1,5 +1,7 @@
 package com.pressnews.demo.dto;
 
+import com.pressnews.demo.model.AuthorModel;
+
 public class AuthorDto {
     private Long id;
     private String firstName;
@@ -17,6 +19,12 @@ public class AuthorDto {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public AuthorDto(AuthorModel authorModel) {
+        this.id = authorModel.getId();
+        this.firstName = authorModel.getFirstName();
+        this.lastName = authorModel.getLastName();
     }
 
     public Long getId() {

@@ -1,35 +1,30 @@
 package com.pressnews.demo.dto;
 
+import com.pressnews.demo.model.PublicationModel;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
 public class PublicationDto {
     private Long id;
     String name;
-    Date publication;
+    Date date;
     Timestamp timestamp;//zapisu dokumentu do warstwy persystencji (timestamp)
-    AuthorDto article; //(imię i nazwisko)
-    ContentsDto contents;
+    AuthorDto author; //(imię i nazwisko)
+    ContentDto contents;
 
     public PublicationDto() {
     }
 
-    public PublicationDto(String name, Date publication, Timestamp timestamp, AuthorDto article, ContentsDto contents) {
-        this.name = name;
-        this.publication = publication;
-        this.timestamp = timestamp;
-        this.article = article;
-        this.contents = contents;
+    public PublicationDto(PublicationModel publicationModel) {
+        this.id = publicationModel.getId();
+        this.name = publicationModel.getName();
+        this.date = publicationModel.getDate();
+        this.timestamp = publicationModel.getTimestamp();
+        this.author = new AuthorDto(publicationModel.getAuthor());
+        this.contents = new ContentDto(publicationModel.getContent());
     }
 
-    public PublicationDto(Long id, String name, Date publication, Timestamp timestamp, AuthorDto article, ContentsDto contents) {
-        this.id = id;
-        this.name = name;
-        this.publication = publication;
-        this.timestamp = timestamp;
-        this.article = article;
-        this.contents = contents;
-    }
 
     public Long getId() {
         return id;
@@ -47,12 +42,12 @@ public class PublicationDto {
         this.name = name;
     }
 
-    public Date getPublication() {
-        return publication;
+    public Date getDate() {
+        return date;
     }
 
-    public void setPublication(Date publication) {
-        this.publication = publication;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Timestamp getTimestamp() {
@@ -63,19 +58,19 @@ public class PublicationDto {
         this.timestamp = timestamp;
     }
 
-    public AuthorDto getArticle() {
-        return article;
+    public AuthorDto getAuthor() {
+        return author;
     }
 
-    public void setArticle(AuthorDto article) {
-        this.article = article;
+    public void setAuthor(AuthorDto author) {
+        this.author = author;
     }
 
-    public ContentsDto getContents() {
+    public ContentDto getContents() {
         return contents;
     }
 
-    public void setContents(ContentsDto contents) {
+    public void setContents(ContentDto contents) {
         this.contents = contents;
     }
 }

@@ -1,9 +1,9 @@
 package com.pressnews.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
-@Table(name="Author")
+@Table(name = "author")
 public class AuthorModel {
 
     @Id

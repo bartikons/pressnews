@@ -1,10 +1,10 @@
 package com.pressnews.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Contents")
-public class ContentsModel {
+@Table(name = "content")
+public class ContentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -13,6 +13,24 @@ public class ContentsModel {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "file")
+    private String file;
+
+    public ContentModel() {
+    }
+
+    public ContentModel(String title, String uploadFiles) {
+        this.title = title;
+        this.file = uploadFiles;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
 
     public String getTitle() {
         return title;
